@@ -1,0 +1,31 @@
+.card {
+  position: relative;
+  width: 5rem;
+  height: 5rem;
+  perspective: 10rem;
+
+  &.rotate {
+    .front {
+      transform: rotateY(180deg);
+    }
+    .back {
+      transform: rotateY(360deg);
+    }
+  }
+
+  .front,
+  .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    backface-visibility: hidden;
+  }
+  .front {
+    background-color: #66ccff;
+  }
+  .back {
+    background-color: #dd8800;
+    transform: rotateY(180deg);
+  }
+}

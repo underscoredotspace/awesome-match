@@ -2,6 +2,7 @@
   "name": "awesome-match",
   "version": "0.1.0",
   "private": true,
+  "license": "CC-BY-4.0",
   "dependencies": {
     "node-sass": "^4.9.3",
     "parcel": "^1.10.2",

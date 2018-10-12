@@ -1,6 +1,7 @@
 .card {
   position: relative;
   perspective: 10rem;
+  user-select: none;
 
   &.rotated {
     .front {

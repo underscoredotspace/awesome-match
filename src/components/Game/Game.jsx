@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import Card from '../Card/Card'
-import emoji from '../../emoji'
+import shuffle from '../../helpers/shuffle'
+import emoji from '../../helpers/emoji'
 
 class Game extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      board: new Array(64).fill(0)
+      board: new Array(64).fill(0),
+      showing: null
     }
 
     this.click = this.click.bind(this)
@@ -19,34 +21,19 @@ class Game extends Component {
 
   loadCards() {
     const emojis1 = new Array(32).fill(0).map(() => this.randomEmoji())
-    const emojis = this.shuffle([...emojis1, ...emojis1])
+    const emojis = shuffle([...emojis1, ...emojis1])
 
     const { board } = this.state
+    const hueSegment = Math.floor(360 / emoji.length)
+
     for (let ndx in board) {
-      board[ndx] = { icon: emojis[ndx], rotated: false }
+      const emojiNdx = emoji.findIndex(e=>e===emojis[ndx])
+
+      const hue = emojiNdx * hueSegment
+      board[ndx] = { icon: emojis[ndx], rotated: false, hue }
     }
 
     this.setState({ board })
-  }
-
-  shuffle(array) {
-    let counter = array.length
-
-    // While there are elements in the array
-    while (counter > 0) {
-      // Pick a random index
-      let index = Math.floor(Math.random() * counter)
-
-      // Decrease counter by 1
-      counter--
-
-      // And swap the last element with it
-      let temp = array[counter]
-      array[counter] = array[index]
-      array[index] = temp
-    }
-
-    return array
   }
 
   randomEmoji() {
@@ -56,7 +43,7 @@ class Game extends Component {
   click(ndx) {
     const { board } = this.state
     const card = board[ndx]
-    card.rotated = !card.rotated
+    card.rotated = true
     this.setState({ board })
   }
 

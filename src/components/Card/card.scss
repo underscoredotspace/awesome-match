@@ -30,5 +30,6 @@
   .back {
     font-size: 2rem;
     transform: rotateY(180deg);
+    background-color: hsl(var(--hue), 100%, 75%);
   }
 }

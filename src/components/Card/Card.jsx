@@ -1,11 +1,10 @@
 import React from 'react'
-import './card.scss'
 
 const Card = card => {
-  const { icon, rotated, click } = card
+  const { icon, rotated, click, ndx } = card
   return (
     <div
-      onClick={() => click(card)}
+      onClick={() => click(ndx)}
       className={`card${rotated ? ' rotate' : ''}`}
     >
       <div className="front" />

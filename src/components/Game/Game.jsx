@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Card from '../Card/Card'
 import emoji from '../../emoji'
-import './game.scss'
 
 class Game extends Component {
   constructor(props) {
@@ -20,8 +19,7 @@ class Game extends Component {
 
   loadCards() {
     const emojis1 = new Array(32).fill(0).map(() => this.randomEmoji())
-    const emojis2 = this.shuffle(emojis1)
-    const emojis = [...emojis1, ...emojis2]
+    const emojis = this.shuffle([...emojis1, ...emojis1])
 
     const { board } = this.state
     for (let ndx in board) {
@@ -55,12 +53,10 @@ class Game extends Component {
     return emoji[Math.floor(Math.random() * emoji.length)]
   }
 
-  click(clickedCard) {
-    console.log({ clickedCard })
-
+  click(ndx) {
     const { board } = this.state
-    const card = board.find(c => c === clickedCard)
-    card.rotate = !card.rotate
+    const card = board[ndx]
+    card.rotated = !card.rotated
     this.setState({ board })
   }
 
@@ -68,7 +64,7 @@ class Game extends Component {
     return (
       <div className="game">
         {this.state.board.map((card, ndx) => (
-          <Card click={this.click} {...card} key={`card-${ndx}`} />
+          <Card click={this.click} {...card} ndx={ndx} key={`card-${ndx}`} />
         ))}
       </div>
     )

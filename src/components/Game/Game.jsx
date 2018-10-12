@@ -8,7 +8,7 @@ class Game extends Component {
     super(props)
 
     this.state = {
-      board: new Array(64).fill(0),
+      board: new Array(16).fill(0),
       showing: null,
       wait: false
     }
@@ -21,24 +21,22 @@ class Game extends Component {
   }
 
   loadCards() {
-    const emojis1 = new Array(32).fill(0).map(() => this.randomEmoji())
-    const emojis = shuffle([...emojis1, ...emojis1])
+    const set = shuffle(emoji).slice(0,8)
+    const emojis = shuffle([...set, ...set])
 
     const { board } = this.state
-    const hueSegment = Math.floor(360 / emoji.length)
+    const hueSegment = Math.floor(360 / set.length)
 
     for (let ndx in board) {
-      const emojiNdx = emoji.findIndex(e=>e===emojis[ndx])
+      const emojiNdx = set.findIndex(e=>e===emojis[ndx])
 
       const hue = emojiNdx * hueSegment
-      board[ndx] = { icon: emojis[ndx], rotated: false, hue }
+      board[ndx] = { icon: emojis[ndx], rotated: false, matched: false, hue }
     }
 
+    console.log({board});
+    
     this.setState({ board })
-  }
-
-  randomEmoji() {
-    return emoji[Math.floor(Math.random() * emoji.length)]
   }
 
   click(ndx) {
@@ -47,25 +45,29 @@ class Game extends Component {
 
     const card = board[ndx]
     card.rotated = true
-    this.setState({board})
 
     if (!showing) {
       showing = card
-      this.setState({ showing })
     } else {
-      wait = true
-      this.setState({wait})
-      
-      setTimeout(() => {
-        showing.rotated = false
-        card.rotated = false
-        wait = false
-
+      if (card.icon !== showing.icon) {
+        wait = true
+        setTimeout(() => {
+          showing.rotated = false
+          card.rotated = false
+          wait = false
+          
+          showing = null
+          
+          this.setState({ board, showing, wait })
+        }, 1000)
+      } else {
+        card.matched = true
+        showing.matched = true
         showing = null
-
-        this.setState({ board, showing, wait })
-      }, 3000)
+      }
     }
+
+    this.setState({board, showing, wait})
   }
 
   render() {

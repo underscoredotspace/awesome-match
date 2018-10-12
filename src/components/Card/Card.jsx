@@ -1,11 +1,11 @@
 import React from 'react'
 
 const Card = card => {
-  const { icon, hue, rotated, click, ndx } = card
+  const { icon, hue, matched, rotated, click, ndx } = card
   return (
     <div
       onClick={() => rotated || click(ndx)}
-      className={`card${rotated ? ' rotate' : ''}`}
+      className={`${matched ? 'matched ' : ''} ${rotated ? 'rotated ' : ''} card`.trim()}
     >
       <div className="front" />
       <div className="back" style={{'--hue': hue}}>

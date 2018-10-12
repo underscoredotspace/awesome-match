@@ -9,7 +9,8 @@ class Game extends Component {
 
     this.state = {
       board: new Array(64).fill(0),
-      showing: null
+      showing: null,
+      wait: false
     }
 
     this.click = this.click.bind(this)
@@ -41,10 +42,30 @@ class Game extends Component {
   }
 
   click(ndx) {
-    const { board } = this.state
+    let { board, showing, wait } = this.state
+    if (wait) { return }
+
     const card = board[ndx]
     card.rotated = true
-    this.setState({ board })
+    this.setState({board})
+
+    if (!showing) {
+      showing = card
+      this.setState({ showing })
+    } else {
+      wait = true
+      this.setState({wait})
+      
+      setTimeout(() => {
+        showing.rotated = false
+        card.rotated = false
+        wait = false
+
+        showing = null
+
+        this.setState({ board, showing, wait })
+      }, 3000)
+    }
   }
 
   render() {

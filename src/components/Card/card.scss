@@ -1,6 +1,7 @@
 .card {
   position: relative;
   perspective: 10rem;
+  -moz-user-select: none;
   user-select: none;
 
   &.rotated {
@@ -13,9 +14,12 @@
   }
 
   &.matched {
-    .front, .back {
+    .front,
+    .back {
       box-shadow: none;
-      color: #00000080;
+      .icon {
+        color: #00000050;
+      }
     }
   }
 
@@ -31,12 +35,26 @@
     border: 1px solid black;
     border-radius: 0.25rem;
     box-shadow: 1px 2px 2px black;
+    text-align: center;
+    .icon,
+    .count {
+      grid-area: 1/1/-1/-1;
+    }
+    .count {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      margin-top: -0.25rem;
+      color: white;
+      text-shadow: 0 0 15px black, 2px 2px 0px silver;
+      font-weight: bolder;
+    }
   }
   .front {
     content: '';
   }
   .back {
-    font-size: 2rem;
+    font-size: 3.5rem;
     transform: rotateY(180deg);
     background-color: hsl(var(--hue), 100%, 75%);
   }

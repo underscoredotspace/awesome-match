@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './game.scss'
 import Card from '../Card/Card'
 import shuffle from '../../helpers/shuffle'
 import emoji from '../../helpers/emoji'

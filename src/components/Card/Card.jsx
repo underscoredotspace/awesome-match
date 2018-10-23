@@ -1,4 +1,5 @@
 import React from 'react'
+import './card.scss'
 
 const Card = ({ icon, hue, count, matched, rotated, gameOver, click, ndx }) => (
   <div

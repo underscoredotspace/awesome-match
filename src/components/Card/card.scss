@@ -37,10 +37,12 @@
     border-radius: 0.25rem;
     box-shadow: 1px 2px 2px black;
     text-align: center;
+    
     .icon,
     .count {
       grid-area: 1/1/-1/-1;
     }
+
     .count {
       position: absolute;
       height: 100%;
@@ -53,7 +55,13 @@
   }
   .front {
     content: '';
+    background-color: azure;
+    background-image: url('./duck.svg');
+    background-position: center center;
+    background-size: auto 3.5rem;
+    background-repeat: no-repeat;
   }
+
   .back {
     font-size: 3.5rem;
     transform: rotateY(180deg);
